@@ -7,15 +7,17 @@ import { TweetModule } from './tweet/tweet.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [UsersModule, TweetModule, AuthModule, TypeOrmModule.forRoot({
-    type: "postgres",
-    entities: [],
-    synchronize: true,
-    host: "localhost",
-    port: 5433,
-    username: "admin",
-    password: "test",
-    database: "appdb"
+  imports: [UsersModule, TweetModule, AuthModule, TypeOrmModule.forRootAsync({
+    useFactory: () => ({
+      type: "postgres",
+      entities: [],
+      synchronize: true,
+      host: "localhost",
+      port: 5433,
+      username: "admin",
+      password: "test",
+      database: "appdb"
+    })
   })],
   controllers: [AppController],
   providers: [AppService],
